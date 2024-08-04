@@ -38,23 +38,26 @@ export default function Header() {
         <div className="mx-auto flex h-full w-full flex-wrap items-center md:flex-row">
           {/* 홈 링크 */}
           <Link href="/" className="title-font flex font-medium text-gray-900">
-            <Image alt="타입리걸" src="/icon/typelegal.png" width={0} height={0} sizes="100vw" className="w-[150px] justify-center p-2" />
+            <Image alt="타입리걸" src="/icon/vercel.svg" width={0} height={0} sizes="100vw" className="w-[150px] justify-center p-2" />
           </Link>
 
           {/* 메뉴 바 */}
           <nav className="ml-auto flex flex-wrap items-center justify-center text-base">
             <div className="ml-auto flex gap-x-5">
-              {currentMember ? (
-                <button onClick={logOutUser} className="btn-plain rounded-lg border p-0.5 px-4">
-                  로그아웃
-                </button>
-              ) : (
-                <Link href="/login" className="hover:text-gray-900">
-                  <button id="loginBtn" className="btn-plain rounded-lg border px-4 py-1">
-                    로그인
+              {
+                currentMember && (
+                  <button onClick={logOutUser} className="btn-plain rounded-lg border p-0.5 px-4">
+                    로그아웃
                   </button>
-                </Link>
-              )}
+                )
+                // : (
+                //   <Link href="/login" className="hover:text-gray-900">
+                //     <button id="loginBtn" className="btn-plain rounded-lg border px-4 py-1">
+                //       로그인
+                //     </button>
+                //   </Link>
+                // )
+              }
               {currentMember && (
                 <Link href="/dashboard" className="hover:text-gray-900">
                   <button id="draftBtn" className="btn-purple rounded-lg border px-4 py-1">
