@@ -7,7 +7,7 @@ export default async function handle(req, res) {
   const vision = require('@google-cloud/vision')
 
   const client = new vision.ImageAnnotatorClient({
-    keyFilename: 'utils/dykim-281905-7c71bf7fc5ac.json'
+    keyFilename: process.env.GOOGLE_API_JSON
   })
   //   const url = 'https://map.naver.com/p/search/%EC%B9%B4%ED%8E%98/place/37837603?c=13.00,0,0,3,dh&placePath=/home'
   //   const url = 'https://naver.me/IMR6G87Q'
