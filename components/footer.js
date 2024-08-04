@@ -12,8 +12,8 @@ export default function Footer() {
               <span className="ml-3 text-xl">CONAN</span>
             </Link> */}
           <div className="flex items-center space-x-3">
-            <p className="mt-4 text-gray-500 sm:mt-0">© Doyeon's Dev</p>
-            <p className="mt-4 text-gray-500 sm:mt-0">|</p>
+            <p className="mt-4 text-gray-500 sm:mt-0">© Doyeon Dev</p>
+            {/* <p className="mt-4 text-gray-500 sm:mt-0">|</p> */}
             {/* <p className="mt-4  text-gray-500 sm:mt-0">이메일: woo@seolcom.io</p> */}
           </div>
           <span className="mt-4 inline-flex justify-center sm:ml-auto sm:mt-0 sm:justify-start">
