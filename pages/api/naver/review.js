@@ -6,8 +6,10 @@ import { setTimeout } from 'node:timers/promises'
 export default async function handle(req, res) {
   // Init google cloud vision
   const vision = require('@google-cloud/vision')
-  const client = new vision.ImageAnnotatorClient({ keyFilename: process.env.GOOGLE_API_JSON })
-  //
+
+  const credentials = JSON.parse(process.env.GOOGLE_CLOUDVISON_API_KEY)
+  const auth = new GoogleAuth({ credentials })
+  const client = new vision.ImageAnnotatorClient({ auth })
   const url = 'https://naver.me/5ux2jPJl' // first landing page with list of blog urls
 
   /**

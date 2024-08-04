@@ -2,13 +2,16 @@ import puppeteer from 'puppeteer'
 import axios from 'axios'
 import cheerio from 'cheerio'
 import { setTimeout } from 'node:timers/promises'
+import { GoogleAuth } from 'google-auth-library'
 
 export default async function handle(req, res) {
   // Init google cloud vision
   const vision = require('@google-cloud/vision')
-  const client = new vision.ImageAnnotatorClient({ keyFilename: process.env.GOOGLE_API_JSON })
 
-  const url = 'https://map.naver.com/p/entry/place/1947170937?placePath=%2Fhome&c=15.00,0,0,0,dh' // first landing page with list of blog urls
+  const credentials = JSON.parse(process.env.GOOGLE_CLOUDVISON_API_KEY)
+  const auth = new GoogleAuth({ credentials })
+  const client = new vision.ImageAnnotatorClient({ auth })
+  const url = 'https://naver.me/5ux2jPJl' // first landing page with list of blog urls
 
   /**
    * 01. Create browser and blank page (tab) objects with Puppeteer
@@ -88,7 +91,7 @@ export default async function handle(req, res) {
     let month = lastDate.substring(3, 4)
     console.log('lastDate', lastDate)
 
-    if (parseInt(month) > 4 && loadBtn) {
+    if (parseInt(month) > 6 && loadBtn) {
       await entryFrame.evaluate(async () => {
         window.scrollTo(0, document.body.scrollHeight) // Scroll to bottom to click "load more button"
       })
