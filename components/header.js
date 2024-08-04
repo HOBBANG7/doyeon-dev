@@ -38,7 +38,7 @@ export default function Header() {
         <div className="mx-auto flex h-full w-full flex-wrap items-center md:flex-row">
           {/* 홈 링크 */}
           <Link href="/" className="title-font flex font-medium text-gray-900">
-            <Image alt="타입리걸" src="/icon/vercel.svg" width={0} height={0} sizes="100vw" className="w-[150px] justify-center p-2" />
+            <Image alt="타입리걸" src="/icon/memo.png" width={0} height={0} sizes="100vw" className="w-[150px] justify-center p-2" />
           </Link>
 
           {/* 메뉴 바 */}
