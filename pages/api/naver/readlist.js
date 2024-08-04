@@ -4,10 +4,6 @@ import cheerio from 'cheerio'
 import { setTimeout } from 'node:timers/promises'
 
 export default async function handle(req, res) {
-  // Init google cloud vision
-  //   const vision = require('@google-cloud/vision')
-  //   const client = new vision.ImageAnnotatorClient({ keyFilename: 'utils/dykim-281905-7c71bf7fc5ac.json' })
-
   const url = 'https://naver.me/GlVmLolQ' // first landing page with list of blog urls
 
   /**
