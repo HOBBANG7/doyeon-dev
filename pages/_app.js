@@ -1,6 +1,7 @@
 import '../styles/globals.css'
 import Script from 'next/script'
 import Head from 'next/head'
+
 // import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
 // import { ThemeProvider } from '@material-tailwind/react'
 import { ThemeProvider } from 'next-themes'
@@ -23,7 +24,7 @@ export default function App({ Component, pageProps }) {
             gtag('config', 'G-MS8Z3MX3ZN', {
               page_path: window.location.pathname,
             });
-          `,
+          `
           }}
         />
         <Component {...pageProps} />
