@@ -28,7 +28,14 @@ export default async function handle(req, res) {
     //   console.log(annotation.description)
     // })
     // str = str.replace(/\s/g, '')
-    res.status(200).json({"text": str})
+    const data = {
+      items: [
+        {
+          text: str
+        }
+      ]
+    }
+    res.status(200).json(data)
   }
 
   //   const text = detectText()
