@@ -153,7 +153,10 @@ export default async function handle(req, res) {
       }
     }
     data.url = url
-    res.status(200).json(data)
+    const obj = {
+      items: [data]
+    }
+    res.status(200).json(obj)
     await page.close()
   } else {
     await page.close()
