@@ -12,7 +12,7 @@ export default async function handle(req, res) {
     schedule.push(cafe)
   })
   //   schedule.hours = schedule.hours.filter((i) => target.includes(i.day))
-  const result = cafe.filter((item) => item.selected).map((item) => ({ _id: item._id }))
+  const result = cafes.filter((item) => item.selected).map((item) => ({ _id: item._id }))
 
   res.status(200).json(schedule)
   //   res.status(200).json(hours.filter((x) => x.day === '매일' || x.day === '목'))

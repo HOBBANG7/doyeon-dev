@@ -12,13 +12,13 @@ export default async function handle(req, res) {
   const credentials = JSON.parse(process.env.GOOGLE_CLOUDVISON_API_KEY)
   const auth = new GoogleAuth({ credentials })
   const client = new vision.ImageAnnotatorClient({ auth })
-  //  const url = 'https://blog.naver.com/studiolettuce/223536017697' // first landing page with list of blog urls
-  // 'http://localhost:3000/api/final/blogPost/?url=https://blog.naver.com/studiolettuce/223536017697'
+//    const url = 'https://blog.naver.com/studiolettuce/223536017697' // first landing page with list of blog urls
+//   'http://localhost:3000/api/final/blogPost/?url=https://blog.naver.com/studiolettuce/223536017697'
   const {
     query: { name, url },
     method
   } = req
-  console.log(name, url, method)
+//   console.log(name, url, method)
 
   /**
    * 01. Create browser and blank page (tab) objects with Puppeteer
