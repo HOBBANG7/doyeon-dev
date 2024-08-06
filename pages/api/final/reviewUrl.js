@@ -13,7 +13,7 @@ export default async function handle(req, res) {
   const auth = new GoogleAuth({ credentials })
   const client = new vision.ImageAnnotatorClient({ auth })
 //    const url = 'https://blog.naver.com/studiolettuce/223536017697' // first landing page with list of blog urls
-//   'http://localhost:3000/api/final/blogPost/?url=https://blog.naver.com/studiolettuce/223536017697'
+//   'http://localhost:3000/api/final/reviewUrl/?url=https://blog.naver.com/studiolettuce/223536017697'
   const {
     query: { name, url },
     method
