@@ -1,33 +1,37 @@
+/*global chrome*/
+
 import puppeteer from 'puppeteer'
-import axios from 'axios'
-import cheerio from 'cheerio'
+// import axios from 'axios'
+// import cheerio from 'cheerio'
 import { setTimeout } from 'node:timers/promises'
 import { GoogleAuth } from 'google-auth-library'
 // import { NextApiRequest, NextApiResponse } from 'next'
 
 export default async function handle(req, res) {
   // Init google cloud vision
+  //   const puppeteer = require('puppeteer')
   const vision = require('@google-cloud/vision')
 
   const credentials = JSON.parse(process.env.GOOGLE_CLOUDVISON_API_KEY)
   const auth = new GoogleAuth({ credentials })
   const client = new vision.ImageAnnotatorClient({ auth })
-//    const url = 'https://blog.naver.com/studiolettuce/223536017697' // first landing page with list of blog urls
-//   'http://localhost:3000/api/final/reviewUrl/?url=https://blog.naver.com/studiolettuce/223536017697'
+  //    const url = 'https://blog.naver.com/studiolettuce/223536017697' // first landing page with list of blog urls
+  //   'http://localhost:3000/api/final/reviewUrl/?url=https://blog.naver.com/studiolettuce/223536017697'
   const {
     query: { name, url },
     method
   } = req
-//   console.log(name, url, method)
+  //   console.log(name, url, method)
 
   /**
    * 01. Create browser and blank page (tab) objects with Puppeteer
    * 02. There is an issue with out-of-process frames, so you need to launch chromium with --disable-features=site-per-process
    * 03. { headless: "new"} option doesn't open browser, but still conduct same crawling operation
    */
-
+  //   await puppeteer.createBrowserFetcher().download(puppeteer.PUPPETEER_REVISIONS.chromium)
   const browser = await puppeteer.launch({
-    headless: false,
+    // executablePath: '/path/to/chrome/executable',
+    headless: true,
     args: ['--disable-features=site-per-process'],
     defaultViewport: null,
     args: [

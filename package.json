@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "postbuild": "next-sitemap"
+    "postbuild": "next-sitemap",
+    "gcp-build": "node node_modules/puppeteer/install.js"
   },
   "dependencies": {
     "@emotion/react": "^11.11.0",
@@ -38,7 +39,8 @@
     "next-sitemap": "^4.0.9",
     "next-themes": "^0.2.1",
     "postcss": "8.4.23",
-    "puppeteer": "^22.13.1",
+    "puppeteer": "^22.15.0",
+    "puppeteer-core": "^22.15.0",
     "ramda": "^0.29.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
