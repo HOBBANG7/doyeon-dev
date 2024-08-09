@@ -32,7 +32,12 @@ export default async function handle(req, res) {
   const browser = await puppeteer.launch({
     // executablePath: '/path/to/chrome/executable',
     headless: true,
-    args: ['--disable-features=site-per-process'],
+    args: [
+      '--disable-setuid-sandbox', // --disable-setuid-sandbox is strictly better than --no-sandbox since you'll at least get the seccomp sandbox
+      '--no-sandbox', // disable Linux sandboxing (A common cause for Chrome to crash during startup is running Chrome as root user (administrator) on Linux.)
+      '--single-process', // (including --no-zygote) so that we don't run too many Chromium processes at the same time
+      '--no-zygote' // prevents the Chrome driver from initiating the Zygote process
+    ],
     defaultViewport: null,
     args: [
       '--start-maximized' // you can also use '--start-fullscreen'
