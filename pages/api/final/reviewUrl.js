@@ -39,6 +39,8 @@ export default async function handle(req, res) {
       '--no-zygote' // prevents the Chrome driver from initiating the Zygote process
     ],
     defaultViewport: null,
+    // executablePath: '/usr/bin/google-chrome-stable',
+    executablePath: puppeteer.executablePath(),
     args: [
       '--start-maximized' // you can also use '--start-fullscreen'
     ]
