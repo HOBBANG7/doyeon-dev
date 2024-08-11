@@ -1,6 +1,6 @@
 /*global chrome*/
 
-import puppeteer from 'puppeteer'
+// import puppeteer from 'puppeteer'
 // import axios from 'axios'
 // import cheerio from 'cheerio'
 import { setTimeout } from 'node:timers/promises'
@@ -12,7 +12,7 @@ export default async function handle(req, res) {
   //   const puppeteer = require('puppeteer')
   const vision = require('@google-cloud/vision')
   const chromium = require('@sparticuz/chromium-min')
-  // const puppeteer = require('puppeteer-core')
+  const puppeteer = require('puppeteer-core')
 
   const credentials = JSON.parse(process.env.GOOGLE_CLOUDVISON_API_KEY)
   const auth = new GoogleAuth({ credentials })
