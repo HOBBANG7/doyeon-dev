@@ -1,6 +1,6 @@
 /*global chrome*/
 
-// import puppeteer from 'puppeteer'
+import puppeteer from 'puppeteer'
 // import axios from 'axios'
 // import cheerio from 'cheerio'
 import { setTimeout } from 'node:timers/promises'
@@ -11,8 +11,8 @@ export default async function handle(req, res) {
   // Init google cloud vision
   //   const puppeteer = require('puppeteer')
   const vision = require('@google-cloud/vision')
-  const chromium = require('@sparticuz/chromium-min')
-  const puppeteer = require('puppeteer-core')
+  //   const chromium = require('@sparticuz/chromium-min')
+  //   const puppeteer = require('puppeteer-core')
 
   const credentials = JSON.parse(process.env.GOOGLE_CLOUDVISON_API_KEY)
   const auth = new GoogleAuth({ credentials })
@@ -31,39 +31,39 @@ export default async function handle(req, res) {
    * 03. { headless: "new"} option doesn't open browser, but still conduct same crawling operation
    */
   //   await puppeteer.createBrowserFetcher().download(puppeteer.PUPPETEER_REVISIONS.chromium)
-  // const browser = await puppeteer.launch({
-  //   // executablePath: '/path/to/chrome/executable',
-  //   headless: true,
-  //   args: [
-  //     '--disable-setuid-sandbox', // --disable-setuid-sandbox is strictly better than --no-sandbox since you'll at least get the seccomp sandbox
-  //     '--no-sandbox', // disable Linux sandboxing (A common cause for Chrome to crash during startup is running Chrome as root user (administrator) on Linux.)
-  //     '--single-process', // (including --no-zygote) so that we don't run too many Chromium processes at the same time
-  //     '--no-zygote' // prevents the Chrome driver from initiating the Zygote process
-  //   ],
-  //   defaultViewport: null,
-  //   // executablePath: '/usr/bin/google-chrome-stable',
-  //   executablePath: await chromium.executablePath(`https://github.com/Sparticuz/chromium/releases/download/v123.0.1/chromium-v123.0.1-pack.tar`),
-  //   // executablePath: puppeteer.executablePath(),
-  //   args: [
-  //     '--start-maximized' // you can also use '--start-fullscreen'
-  //   ]
-  // })
+  //   async function getBrowser() {
+  //     return puppeteer.launch({
+  //       args: [...chromium.args, '--hide-scrollbars', '--disable-web-security'],
+  //       defaultViewport: chromium.defaultViewport,
+  //       executablePath: await chromium.executablePath(
+  //         `https://github.com/Sparticuz/chromium/releases/download/v116.0.0/chromium-v116.0.0-pack.tar`
+  //       ),
+  //       headless: chromium.headless,
+  //       ignoreHTTPSErrors: true,
+  //     });
+  //   }
+  //   const browser = await getBrowser()
   const browser = await puppeteer.launch({
-    // args: [...chromium.args, '--no-sandbox', '--hide-scrollbars', '--disable-web-security', '--disable-extensions'],
-    // defaultViewport: chromium.defaultViewport,
+    // executablePath: '/path/to/chrome/executable',
+    headless: true,
+    // headless: chromium.headless,
     args: [
+      //   ...chromium.args,
       '--disable-setuid-sandbox', // --disable-setuid-sandbox is strictly better than --no-sandbox since you'll at least get the seccomp sandbox
       '--no-sandbox', // disable Linux sandboxing (A common cause for Chrome to crash during startup is running Chrome as root user (administrator) on Linux.)
       '--single-process', // (including --no-zygote) so that we don't run too many Chromium processes at the same time
       '--no-zygote' // prevents the Chrome driver from initiating the Zygote process
     ],
-    // executablePath: await chromium.executablePath(chromiumPack),
-    // executablePath: '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
-    executablePath: '/Users/conan/Desktop/개발/REACT/doyeon-dev/node_modules/chromium/lib/chromium/chrome-mac/Chromium.app/Contents/MacOS/Chromium',
-    headless: true,
-    ignoreHTTPSErrors: true
-  })
+    defaultViewport: null,
+    // defaultViewport: chromium.defaultViewport,
+    executablePath: puppeteer.executablePath()
+    // executablePath: await chromium.executablePath(`https://github.com/Sparticuz/chromium/releases/download/v116.0.0/chromium-v116.0.0-pack.tar`),
+    // ignoreHTTPSErrors: true
 
+    // args: [
+    //   '--start-maximized' // you can also use '--start-fullscreen'
+    // ]
+  })
   const page = await browser.newPage()
 
   // Set screen size
