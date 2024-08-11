@@ -59,7 +59,9 @@ export default async function handle(req, res) {
     ],
     // executablePath: await chromium.executablePath(chromiumPack),
     // executablePath: '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
-    executablePath: '/Users/conan/Desktop/개발/REACT/doyeon-dev/node_modules/chromium/lib/chromium/chrome-mac/Chromium.app/Contents/MacOS/Chromium',
+    // executablePath: '/Users/conan/Desktop/개발/REACT/doyeon-dev/node_modules/chromium/lib/chromium/chrome-mac/Chromium.app/Contents/MacOS/Chromium',
+    executablePath: '/opt/homebrew/bin/chromium',
+    ignoreDefaultArgs: ['--disable-extensions'],
     headless: true,
     ignoreHTTPSErrors: true
   })
