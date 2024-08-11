@@ -51,16 +51,16 @@ export default async function handle(req, res) {
   const browser = await puppeteer.launch({
     // args: [...chromium.args, '--no-sandbox', '--hide-scrollbars', '--disable-web-security', '--disable-extensions'],
     // defaultViewport: chromium.defaultViewport,
-    executablePath: '/opt/homebrew/bin/chromium',
     args: [
-      '--disable-gpu',
-      '--disable-dev-shm-usage', // https://stackoverflow.com/questions/59979188/error-failed-to-launch-the-browser-process-puppeteer
+      // '--disable-gpu',
+      // '--disable-dev-shm-usage', // https://stackoverflow.com/questions/59979188/error-failed-to-launch-the-browser-process-puppeteer
       '--disable-setuid-sandbox', // --disable-setuid-sandbox is strictly better than --no-sandbox since you'll at least get the seccomp sandbox
-      '--no-first-run', // https://stackoverflow.com/questions/59979188/error-failed-to-launch-the-browser-process-puppeteer
+      // '--no-first-run', // https://stackoverflow.com/questions/59979188/error-failed-to-launch-the-browser-process-puppeteer
       '--no-sandbox', // disable Linux sandboxing (A common cause for Chrome to crash during startup is running Chrome as root user (administrator) on Linux.)
       '--single-process', // (including --no-zygote) so that we don't run too many Chromium processes at the same time
       '--no-zygote' // prevents the Chrome driver from initiating the Zygote process
     ],
+    executablePath: '/opt/homebrew/bin/chromium',
     // executablePath: await chromium.executablePath(chromiumPack),
     // executablePath: '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
     // executablePath: '/Users/conan/Desktop/개발/REACT/doyeon-dev/node_modules/chromium/lib/chromium/chrome-mac/Chromium.app/Contents/MacOS/Chromium',
