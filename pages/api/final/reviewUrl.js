@@ -6,12 +6,15 @@
 import { setTimeout } from 'node:timers/promises'
 import { GoogleAuth } from 'google-auth-library'
 // import { NextApiRequest, NextApiResponse } from 'next'
+import chromium from '@sparticuz/chromium-min'
 
 export default async function handle(req, res) {
+  chromium.setHeadlessMode = true
+  chromium.setGraphicsMode = false
   // Init google cloud vision
   //   const puppeteer = require('puppeteer')
   const vision = require('@google-cloud/vision')
-  const chromium = require('@sparticuz/chromium-min')
+  // const chromium = require('@sparticuz/chromium-min')
   const puppeteer = require('puppeteer-core')
 
   const credentials = JSON.parse(process.env.GOOGLE_CLOUDVISON_API_KEY)
@@ -48,27 +51,45 @@ export default async function handle(req, res) {
   //     '--start-maximized' // you can also use '--start-fullscreen'
   //   ]
   // })
-  const browser = await puppeteer.launch({
-    // args: [...chromium.args, '--no-sandbox', '--hide-scrollbars', '--disable-web-security', '--disable-extensions'],
-    // defaultViewport: chromium.defaultViewport,
-    args: [
-      // '--disable-gpu',
-      // '--disable-dev-shm-usage', // https://stackoverflow.com/questions/59979188/error-failed-to-launch-the-browser-process-puppeteer
-      '--disable-setuid-sandbox', // --disable-setuid-sandbox is strictly better than --no-sandbox since you'll at least get the seccomp sandbox
-      // '--no-first-run', // https://stackoverflow.com/questions/59979188/error-failed-to-launch-the-browser-process-puppeteer
-      '--no-sandbox', // disable Linux sandboxing (A common cause for Chrome to crash during startup is running Chrome as root user (administrator) on Linux.)
-      '--single-process', // (including --no-zygote) so that we don't run too many Chromium processes at the same time
-      '--no-zygote' // prevents the Chrome driver from initiating the Zygote process
-    ],
-    executablePath: '/opt/homebrew/bin/chromium',
-    // executablePath: await chromium.executablePath(chromiumPack),
-    // executablePath: '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
-    // executablePath: '/Users/conan/Desktop/개발/REACT/doyeon-dev/node_modules/chromium/lib/chromium/chrome-mac/Chromium.app/Contents/MacOS/Chromium',
-    // executablePath: '/usr/bin/chromium-browser',
-    ignoreDefaultArgs: ['--disable-extensions'],
-    headless: true,
-    ignoreHTTPSErrors: true
-  })
+  const browser = await puppeteer.launch(
+    process.env.NODE_ENV === 'development'
+      ? // 로컬 실행 환경
+        {
+          headless: true,
+          executablePath: process.env.NEXT_LOCAL_CHROME_PATH
+        }
+      : // 서버 실행 환경
+        {
+          args: [...chromium.args, '--hide-scrollbars', '--disable-web-security', '--no-sandbox', '--disable-setuid-sandbox'],
+          defaultViewport: chromium.defaultViewport,
+          executablePath: await chromium.executablePath(`${process.env.NEXT_PUBLIC_CDN_LINK}`),
+          headless: chromium.headless,
+          ignoreHTTPSErrors: true
+        }
+    //   {
+    //   // args: [...chromium.args, '--no-sandbox', '--hide-scrollbars', '--disable-web-security', '--disable-extensions'],
+    //   // defaultViewport: chromium.defaultViewport,
+    //   args: [
+    //     '--disable-gpu', // GPU 가속을 사용하지 않도록 설정한다. GPU 가속을 사용하면 더 나은 성능을 제공할 수 있지만, 브라우저 실행 시 문제가 발생할 수도 있다. 이 옵션은 이러한 문제를 해결하기 위해 사용된다.
+    //     // '--disable-dev-shm-usage', // /dev/shm을 사용하지 않도록 설정하여, Chromium에서 메모리를 더 사용하고, 보안과 관련된 문제를 해결할 수 있다.
+    //     '--no-sandbox', // disable Linux sandboxing (A common cause for Chrome to crash during startup is running Chrome as root user (administrator) on Linux.)
+    //     '--disable-setuid-sandbox', // --disable-setuid-sandbox is strictly better than --no-sandbox since you'll at least get the seccomp sandbox
+    //     // '--no-first-run', // https://stackoverflow.com/questions/59979188/error-failed-to-launch-the-browser-process-puppeteer
+    //     '--single-process', // (including --no-zygote) so that we don't run too many Chromium processes at the same time
+    //     '--no-zygote' // prevents the Chrome driver from initiating the Zygote process
+    //   ],
+    //   executablePath: '/opt/homebrew/bin/chromium',
+    //   // executablePath: '/usr/bin/google-chrome-stable',
+
+    //   // executablePath: await chromium.executablePath(chromiumPack),
+    //   // executablePath: '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
+    //   // executablePath: '/Users/conan/Desktop/개발/REACT/doyeon-dev/node_modules/chromium/lib/chromium/chrome-mac/Chromium.app/Contents/MacOS/Chromium',
+    //   // executablePath: '/usr/bin/chromium-browser',
+    //   ignoreDefaultArgs: ['--disable-extensions'],
+    //   headless: true,
+    //   ignoreHTTPSErrors: true
+    // }
+  )
 
   const page = await browser.newPage()
 
