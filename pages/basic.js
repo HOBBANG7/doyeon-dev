@@ -1,3 +1,5 @@
+'use client'
+
 import { useEffect, useState } from 'react'
 import Layout from 'components/layout'
 import Head from 'next/head'
@@ -10,11 +12,43 @@ export default function Search() {
     async function getPageData() {}
     getPageData()
   }, [])
+  const [file, setFile] = useState('')
 
+  const handleFileChange = (event) => {
+    if (event.target.files) {
+      const currentFile = event.target.files[0]
+      setFile(currentFile)
+    }
+  }
+
+  const handleUpload = async () => {
+    if (!file) return
+
+    const formData = new FormData()
+    formData.append('file', file)
+
+    const response = await fetch('/api/upload', {
+      method: 'POST'
+    })
+    const { url } = await response.json()
+    await fetch(url, {
+      method: 'PUT',
+      body: formData
+    })
+  }
   // useEffect(() => {
   // }, [])
 
   // grid-cols-[240px_1fr_1.2fr]
+  const handleDownload = async () => {
+    const response = await fetch('/api/download')
+    const blob = await response.blob()
+    const fileURL = window.URL.createObjectURL(blob)
+    let anchor = document.createElement('a')
+    anchor.href = fileURL
+    anchor.download = 'filename.pdf'
+    anchor.click()
+  }
 
   return (
     <>
@@ -34,6 +68,26 @@ export default function Search() {
               <div />
               <div className="grid h-full w-full place-content-center py-8 text-4xl font-bold">
                 <p>타입리걸 개인정보처리방침</p>
+                <button
+                  type="button"
+                  className="rounded-md bg-pink-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-pink-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pink-500"
+                  onClick={handleDownload}
+                >
+                  Download
+                </button>
+              </div>
+              <div className="bg-yellow w-full text-center">
+                {/* <DocumentIcon className="mx-auto h-12 w-12 text-gray-500" aria-hidden="true" /> */}
+                <div className="mt-4 text-sm leading-6 text-gray-400">
+                  <label
+                    htmlFor="file-upload"
+                    className="relative cursor-pointer rounded-md bg-gray-900 font-semibold text-white focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 focus-within:ring-offset-gray-900 hover:text-indigo-500"
+                  >
+                    <span>Upload a file</span>
+                    <input type="file" accept="application/pdf" id="file-upload" name="file-upload" className="sr-only" onChange={handleFileChange} />
+                  </label>
+                </div>
+                <p className="text-xs leading-5 text-gray-400">{file?.name ? file.name : 'PDF up to 100MB'}</p>
               </div>
               <div />
             </div>

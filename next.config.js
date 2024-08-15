@@ -14,7 +14,8 @@ const nextConfig = {
     }
 
     return config
-  }
+  },
+  assetPrefix: 'https://cdn.doyeonkim.dev'
 }
 
 module.exports = nextConfig
@@ -23,7 +24,7 @@ module.exports = {
     return [
       {
         source: '/api/:path*',
-        destination: 'http://localhost:3001/:path*'
+        destination: 'http://localhost:3000/:path*'
       }
     ]
   }
