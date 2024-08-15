@@ -1,7 +1,7 @@
 import { GetObjectCommand } from '@aws-sdk/client-s3'
 import chalk from 'chalk'
 
-import { r2 } from '@/lib/r2'
+import { r2 } from '/lib/r2'
 
 export async function GET() {
   try {
