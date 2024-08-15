@@ -40,4 +40,4 @@ next-env.d.ts
 .gitattributes
 
 # api
-/pages/api/download
+/pages/api/download/route.ts
