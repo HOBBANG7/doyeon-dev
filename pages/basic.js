@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import Layout from 'components/layout'
+import Layout from '/components/layout'
 import Head from 'next/head'
 
 import _ from 'lodash'
