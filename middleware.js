@@ -15,13 +15,19 @@ export const config = {
 
 export default async function middleware(req) {
   const url = req.nextUrl
+  console.log('url', url)
 
   const hostname = req.headers.get('host').replace('.localhost:3000', `.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`)
+  console.log('hostname', hostname)
+
   const searchParams = req.nextUrl.searchParams.toString()
+  console.log('searchParams', searchParams)
 
   const path = `${url.pathname}${searchParams.length > 0 ? `?${searchParams}` : ''}`
+  console.log('path', path)
 
   const subDomain = hostname.split('.')[0]
+  console.log('subDomain', subDomain)
 
   switch (true) {
     case subDomain !== hostname:
