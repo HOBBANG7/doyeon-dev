@@ -1,13 +1,12 @@
-import { defineField, defineType } from 'sanity'
-
-export const artistType = defineType({
-  name: 'artist', // *[_type == "artist"]
+export default {
   title: 'Artist',
+  name: 'artist',
   type: 'document',
-  fields: [
-    defineField({
-      name: 'name',
-      type: 'string'
-    })
-  ]
-})
+  fields: [{ title: 'name', name: 'name', type: 'string' }]
+  // preview: {
+  //   select: {
+  //     title: '',
+  //     subtitle: ''
+  //   }
+  // }
+}
